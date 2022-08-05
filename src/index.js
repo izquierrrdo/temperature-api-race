@@ -17,15 +17,12 @@ const fetchObj1 = new WeatherProvider(
 const fetchObj2 = new WeatherProvider(
   'Open Meteo',
   mapPoint,
-  'https://api.open-meteo.com/v1/forecasto?latitude=${lat}&longitude=${long}&current_weather=true',
+  'https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&current_weather=true',
   'current_weather.temperature'
 );
 
 Promise.any([fetchObj1.fetchData(), fetchObj2.fetchData()])
   .then((data) => {
-    console.log(data.apiName);
-    console.log(objectLens(data, data.temperaturePath));
-
     document.getElementById('app').innerHTML = `
     <h2>${objectLens(data, data.temperaturePath)}&nbsp;℃</h2>
     <p>${data.apiName}</p>
